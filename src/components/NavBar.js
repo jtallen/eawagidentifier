@@ -1,18 +1,18 @@
 import Link from 'next/link';
 import Button from './Button';
-import { BookOpen, Plus } from './icons/outline';
+import { Home, CloudUpload } from './icons/outline';
 
 export default function NavBar() {
     return (
         <nav className="flex justify-between border-b-2 p-2 w-screen bg-gray-50">
             <Link href="/">
                 <Button icon transparent theme="primaryLight">
-                    <BookOpen />
+                    <Home />
                 </Button>
             </Link>
-            <Link href="/add-record">
+            <Link href="/upload">
                 <Button icon transparent theme="primaryLight">
-                    <Plus />
+                    <CloudUpload />
                 </Button>
             </Link>
         </nav>

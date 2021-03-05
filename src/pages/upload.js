@@ -1,14 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import RecordForm from '../components/RecordForm';
+import UploadForm from '../components/UploadForm';
 import requests from '../util/requests';
 
-export default function AddRecord() {
+export default function Upload() {
     const router = useRouter();
 
     const onSubmit = (formData) =>
         requests
-            .post('/api/create-record', {
+            .post('/api/create-upload', {
                 body: JSON.stringify(formData),
             })
             .then(() => {
@@ -17,11 +17,7 @@ export default function AddRecord() {
 
     return (
         <div className="flex justify-center min-h-screen">
-            <RecordForm
-                headerText={'Add Record'}
-                onSubmit={onSubmit}
-                onClose={() => router.push('/')}
-            />
+            <UploadForm onSubmit={onSubmit} />
         </div>
     );
 }

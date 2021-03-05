@@ -8,26 +8,22 @@ const { hasuraRequest } = require('../../util/hasura');
 */
 const GQL_DEFINITIONS = {
     title: 'String!',
-    raw: 'String!',
-    text: 'String = ""',
-    type: 'String!',
-    created_at: 'timestamptz',
+    ph: 'numeric!',
+    notes: 'String = ""',
+    image: 'String!',
 };
 
-async function createRecord(req, res) {
-    const { title, text, raw, type, createdAt } = JSON.parse(req.body);
-    console.log({ title, text, raw, type, createdAt });
+async function createUpload(req, res) {
+    const { title, pH, notes, image } = JSON.parse(req.body);
+    console.log({ title, pH, notes, image });
 
     const variables = {
         title,
-        raw,
-        text,
+        ph: pH,
+        image,
     };
-    if (type) {
-        variables.type = type;
-    }
-    if (createdAt) {
-        variables.created_at = createdAt;
+    if (notes) {
+        variables.notes = notes;
     }
 
     const query = buildQuery(variables);
@@ -52,13 +48,18 @@ function buildQuery(variables) {
     const inputDef = varNames.map((name) => `${name}: $${name}`).join(', ');
 
     return `
-        mutation CreateRecord(${typeDef}) {
-            insert_text_records_one(object: {${inputDef}}) {
+        mutation CreateUpload(${typeDef}) {
+            insert_uploads_one(object: {${inputDef}}) {
+                createdAt: created_at
                 id
+                image
+                notes
+                title
+                pH: ph
             }
         }
     `;
 }
 
-exports.createRecord = createRecord;
-export default createRecord;
+exports.createUpload = createUpload;
+export default createUpload;
