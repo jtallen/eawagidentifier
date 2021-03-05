@@ -19,7 +19,13 @@ class Requests {
         return `${this._host}${url}`;
     }
 }
-const host = 'http://localhost:3000';
+
+// TODO: Push into .env
+const host =
+    process.env.NODE_ENV === 'production'
+        ? 'https://eawagidentifier.vercel.app'
+        : 'http://localhost:3000';
+
 export default new Requests({
     host,
 });
